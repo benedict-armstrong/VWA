@@ -1,2 +1,4 @@
 # VWA
-Vorwissenschaftliche Arbeit
+Vorwissenschaftliche Arbeit von Benedict Armstrong
+
+
