@@ -1,3 +1,6 @@
+drop database if exists cinema_reservation_db;
+CREATE DATABASE cinema_reservation_db;
+
 drop sequence if exists user_id_seq cascade;
 CREATE SEQUENCE user_id_seq;
 
