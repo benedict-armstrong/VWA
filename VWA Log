@@ -53,3 +53,9 @@ Log for my VWA
 
 [29.05.17 18:30] Drew a entity diagramm for the Database model, decided to make the Application a cinema reservation system and created the DB
 
+[04.06.17 16:00] Wrote first SQL statements and decided to psycopg2 as the python database interface
+
+[05.06.17 13:00] Writing more dao (Data Access Objects) statements (create update and delete)
+
+[25.06.17 14:00] Writing some more DAO statements
+

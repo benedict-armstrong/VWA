@@ -20,7 +20,7 @@ drop table if exists movie cascade;
 CREATE TABLE movie (
 	id	INTEGER default nextval('movie_id_seq') NOT NULL,
 	length_in_minutes	INTEGER NOT NULL,
-	name	varchar(100) NOT NULL,
+	name	varchar(100) NOT NULL UNIQUE,
 	release_date	varchar(100) NOT NULL,
     PRIMARY KEY(id)
 );
