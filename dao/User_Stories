@@ -1,0 +1,37 @@
+User Stories:
+
+User Story 1:
+
+    Customer Bill wants 5 seats for "Shreck" @ 15:00 (Seats 10-15)
+
+        get a list of movies(Name) [get_showing_movies]
+
+        when he picks a movie(id) return the showing times [get_screenings(movie_id), returns id, room_id]
+
+        get the seats(id) [get_seats_for_screening(room_id)]
+
+
+
+        when he chooses a seat create a booking with a ticket for each seat
+
+        return booking Reference
+
+User Story 2:
+
+    Customer Joe wants to cancel his reservation with Reference number #123
+
+        get customer(id)
+
+        delete the booking with the Reference number #123 if booking(customer_id) = customer(id)
+
+
+User Story 3:
+
+    Ben wants to create a User
+
+User Story 4:
+
+    Manager wants to add the movie shedule for next month 
+
+
+select id from seat where room_id = 

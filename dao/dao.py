@@ -15,6 +15,7 @@ def get_db_cursor():
         conn.commit()
         cursor.close()
 
+"""
 def connect_test():
     with get_db_cursor() as cursor:
         cursor.execute("select * from movie;")
@@ -22,10 +23,20 @@ def connect_test():
         print movie
 
 connect_test()
+"""
+
 
 def add_movie(length_in_minutes, name, release_date):
     with get_db_cursor() as cursor:
         cursor.execute("""insert into movie (length_in_minutes,name,release_date) values (%s, %s, %s) returning *;""", [length_in_minutes, name, release_date])
         return cursor.fetchone()
 
+def remove_movie(id):
+    with get_db_cursor() as cursor:
+        cursor.execute("""delete from movie where i;""", [length_in_minutes, name, release_date])
+        return cursor.fetchone()
 
+def add_movie(length_in_minutes, name, release_date):
+    with get_db_cursor() as cursor:
+        cursor.execute("""insert into movie (length_in_minutes,name,release_date) values (%s, %s, %s) returning *;""", [length_in_minutes, name, release_date])
+        return cursor.fetchone()
