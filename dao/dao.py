@@ -31,12 +31,7 @@ def add_movie(length_in_minutes, name, release_date):
         cursor.execute("""insert into movie (length_in_minutes,name,release_date) values (%s, %s, %s) returning *;""", [length_in_minutes, name, release_date])
         return cursor.fetchone()
 
-def remove_movie(id):
+def remove_movie(movie_id):
     with get_db_cursor() as cursor:
-        cursor.execute("""delete from movie where i;""", [length_in_minutes, name, release_date])
-        return cursor.fetchone()
-
-def add_movie(length_in_minutes, name, release_date):
-    with get_db_cursor() as cursor:
-        cursor.execute("""insert into movie (length_in_minutes,name,release_date) values (%s, %s, %s) returning *;""", [length_in_minutes, name, release_date])
+        cursor.execute("""delete from movie where id=%s;""", [movie_id])
         return cursor.fetchone()
