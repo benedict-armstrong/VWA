@@ -10,8 +10,6 @@ User Story 1:
 
         get the seats(id) [get_seats_for_screening(room_id)]
 
-
-
         when he chooses a seat create a booking with a ticket for each seat
 
         return booking Reference
