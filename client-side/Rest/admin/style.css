@@ -1,0 +1,33 @@
+h1 {
+    font-size: 20px;    
+}
+
+.item-inner {
+    margin: 20px 10px;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    min-height: 180px;
+}
+
+.glyphicon {
+    font-size: 80px; 
+}
+
+.item-inner:hover {
+    background-color: #78D1FF;
+    color: white;
+    border: 2px solid #78D1FF;
+}
+
+button {
+    margin: 10px 0px;
+    padding: 3px;
+}
+
+.input {
+    margin: 10px 0px;
+}
+
+.arrow {
+    height: 50px;
+}

@@ -1,0 +1,25 @@
+body {
+    background-color: #EBE8E8;
+    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+}
+
+.movie {
+    margin: 10px;
+    background-color: white;
+    display: inline-block;
+    box-shadow: 1px 1px 10px #CCCCCC;
+}
+
+.movie:hover {
+    box-shadow: 3px 1px 5px #8F8E8E;
+}
+
+.movie p , .movie h4 {
+    padding: 5px;
+}
+
+.movie img {
+    width: 160px;
+}
