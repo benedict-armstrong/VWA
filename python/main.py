@@ -1,4 +1,4 @@
-import connexion
+#import connexion
 from flask import Flask, jsonify, abort, make_response, request
 from dao import *
 from flask_cors import CORS
@@ -9,7 +9,7 @@ CORS(app)
 ######### error ########
 
 @app.errorhandler(404)
-def not_found(error):
+def not_found():
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 ######### Get ##########
@@ -65,16 +65,16 @@ def info_movie(movie_id):
 
 @app.route('/movies/<movie_id>/screenings', methods=['GET'])
 def screenings(movie_id):
-    screenings = get_screenings(movie_id)
-    if (screenings is None or len(screenings) == 0):
+    screenings1 = get_screenings(movie_id)
+    if (screenings1 is None or len(screenings1) == 0):
         abort(404)
     else:
         return jsonify(screenings)
 
 @app.route('/screenings', methods=['GET'])
 def all_screenings():
-    screenings = get_all_screenings()
-    if (screenings is None or len(screenings) == 0):
+    screenings1 = get_all_screenings()
+    if (screenings1 is None or len(screenings1) == 0):
         abort(404)
     else:
         return jsonify(screenings)
@@ -100,7 +100,7 @@ def add_movie_REST():
 @app.route('/booking/new', methods=['POST'])
 def new_booking():
     if not request.json or not 'screening_id' in request.json or not 'customer_id' in request.json:
-       abort(400)
+        abort(400)
     booking_id = create_booking(request.json['customer_id'], request.json['screening_id'])
     return jsonify(booking_id), 201
 
