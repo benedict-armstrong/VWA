@@ -1,0 +1,58 @@
+swagger: "2.0"
+info:
+  title: Cine API
+  version: "1.0"
+produces:
+  - application/json
+consumes:
+  - application/json
+
+paths:
+  /movies:
+    get:
+      tags: [movies]
+      operationId: controllers.movies.showing_movies
+      summary: Gets all of the showing sovies
+      responses:
+        200:
+          description: Returns schowing movies
+          schema:
+            type: array
+            items: 
+              $ref: '#/definitions/Movie'
+        404:
+          description: No movies
+
+  /test:
+    get:
+      tags: [test]
+      operationId: system.mytest
+      summary: Test
+      responses:
+        200:
+          description: Successful response.
+  
+      
+definitions:
+  Movie:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique ID of the Movie
+        readOnly: true
+      length_in_minutes:
+        type: integer
+        description: length of Movie in Minutes
+        readOnly: true
+      name:
+        type: string
+        description: Name of the Movie
+        readOnly: true
+      release_date:
+        type: integer
+        description: Year of release (fix it!)
+        readOnly: true
+
+        
+

@@ -58,7 +58,7 @@ def get_all_cinemas():
 
 def get_movies_showing():
     with get_db_cursor() as cursor:
-        cursor.execute("""select movie_id from screening group by movie_id;""")
+        cursor.execute("""select * from movie where id in (select movie_id from screening);""")
         return cursor.fetchall()
 
 def get_screenings(movie_id):
