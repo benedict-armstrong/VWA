@@ -22,6 +22,22 @@ paths:
               $ref: '#/definitions/Movie'
         404:
           description: No movies
+  
+  /movie/{movie_id}:
+    get:
+      tags: [movies]
+      operationId: controllers.movies.info_movie
+      summary: Gets info for movie by id
+      parameters:
+        - $ref: '#/parameters/movie_id'
+      responses:
+        200:
+          description: Returns info on Movie
+          schema:
+            items: 
+              $ref: '#/definitions/Movie'
+        404:
+          description: No movie
 
   /test:
     get:
@@ -54,5 +70,11 @@ definitions:
         description: Year of release (fix it!)
         readOnly: true
 
-        
+parameters:
+  movie_id:
+    name: movie_id
+    description: Movies's unique identifier
+    in: path
+    type: integer
+    required: true
 

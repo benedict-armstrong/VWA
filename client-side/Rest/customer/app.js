@@ -1,6 +1,5 @@
 var movie_img = "<img src='img/avengers.jpg'>";
 
-
 $(document).ready(function() {
 
     /* Setup */
@@ -20,7 +19,7 @@ $(document).ready(function() {
         success: function(result) {
             for (var i = 0; i < result["showing_movies"].length;i++) {
                 $.ajax({
-                    url: "http://127.0.0.1:5000/movies/" + result["showing_movies"][i]["movie_id"],
+                    url: "http://127.0.0.1:5000/movie/" + result["showing_movies"][i]["id"],
                     success: function(result2) {
                         $.get("movie_card.html", function(data) {
                             $("body").append(data);
@@ -30,10 +29,11 @@ $(document).ready(function() {
                             movie.prepend(movie_img);
                         });
                     }, error: function(xhr2) {
-                        alert("Error (" + xhr2.status + ") :  " + xhr2.statusText);
+                        alert("Error2 (" + xhr2.status + ") :  " + xhr2.statusText);
                     }
-                }); 
+                });
             };
+            
         }, error: function(xhr) {
             alert("Error (" + xhr.status + ") :  " + xhr.statusText);
         }
