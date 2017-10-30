@@ -39,14 +39,22 @@ paths:
         404:
           description: No movie
 
-  /test:
+  /movie/{movie_id}/screenings:
     get:
-      tags: [test]
-      operationId: system.mytest
-      summary: Test
+      tags: [screenings]
+      operationId: controllers.screenings.screenings
+      summary: Gets all screenings for a Movie (by Movie Id)
+      parameters:
+          - $ref: '#/parameters/movie_id'
       responses:
-        200:
-          description: Successful response.
+          200:
+            description: Returns all screenings
+            schema:
+              type: array
+              items: 
+                $ref: '#/definitions/Screening'
+          404:
+            description: No Screenings
   
       
 definitions:
@@ -68,6 +76,25 @@ definitions:
       release_date:
         type: integer
         description: Year of release (fix it!)
+        readOnly: true
+  Screening:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique ID of the Screening
+        readOnly: true
+      screening_time:
+        type: string
+        description: timing of screening (no timezones)
+        readOnly: true
+      room_id:
+        type: integer
+        description: Room of screening (FK)
+        readOnly: true
+      movie_id:
+        type: integer
+        description: id of the Movie (FK)
         readOnly: true
 
 parameters:

@@ -18,20 +18,8 @@ $(document).ready(function() {
         url: "http://127.0.0.1:5000/movies",
         success: function(result) {
             for (var i = 0; i < result["showing_movies"].length;i++) {
-                $.ajax({
-                    url: "http://127.0.0.1:5000/movie/" + result["showing_movies"][i]["id"],
-                    success: function(result2) {
-                        $.get("movie_card.html", function(data) {
-                            $("body").append(data);
-                            $(".movie:last").attr("movie_id",result2["id"]);
-                            var movie = $('.movie[movie_id=' + result2["id"] + ']');
-                            movie.children("h4").text(result2["name"]);
-                            movie.prepend(movie_img);
-                        });
-                    }, error: function(xhr2) {
-                        alert("Error2 (" + xhr2.status + ") :  " + xhr2.statusText);
-                    }
-                });
+                var movie = result["showing_movies"][i];
+                paint_movie(movie);
             };
             
         }, error: function(xhr) {
@@ -39,6 +27,64 @@ $(document).ready(function() {
         }
     }); 
 
+    /* Modal */
 
+    $(".content").on("click", ".movie_card", function() {
+        var movie = {};
+        movie["name"] = $(this).children("h4").text();
+        movie["id"] = $(this).attr("movie_id");
+        $(".modal-header").text(movie["name"]);
+        paint_modal(movie);
+    });
 
 });
+
+function paint_movie(movie) {
+    if (!$(".row:last > div").length < 12) {
+        $(".content").append("<div class='row'></div>");
+    };
+    $.get("movie_card.html", function(data) {
+        $(".content > .row:last").append(data);
+        $(".movie_card:last").attr("movie_id", movie["id"]);
+        var movie_dom = $('.movie_card[movie_id=' + movie["id"] + ']');
+        movie_dom.children("h4").text(movie["name"]);
+        movie_dom.prepend(movie_img);
+        /*$.ajax({
+            url: "http://127.0.0.1:5000/poster/" + movie["id"],
+            success: function(result) {
+                movie_dom.prepend(result);
+            }, error: function(xhr) {
+                alert("Error (" + xhr.status + ") :  " + xhr.statusText);
+            }
+        });*/
+    });
+};
+
+function paint_modal(movie) {
+    $.ajax({
+        url: "http://127.0.0.1:5000/movie/" + movie["id"] + "/screenings",
+        success: function(result) {
+            $(".modal-body").html("");
+            $.get("reservation-modal-body.html", function(data) {
+                $(".modal-body").append(get_poster_dom(movie));
+                $(".modal-body").append(data);
+                $("#modal-movie-title").text(movie["name"]);
+            });
+            for (var i = 0; i < result["screenings"].length;i++) {
+                var screening = {};
+                screening["id"] = result["screenings"][i]["id"];
+                screening["screening_time"] = result["screenings"][i]["screening_time"];
+                screening["room_id"] = result["screenings"][i]["room_id"];
+                screening["movie_id"] = result["screenings"][i]["movie_id"];
+                
+            };
+            $("#reservation-modal").modal("show");
+        }, error: function(xhr) {
+            alert("Error (" + xhr.status + ") :  " + xhr.statusText);
+        }
+    });
+};
+
+function get_poster_dom(movie) {
+    return $(".movie_card[movie_id='" + movie['id'] + "']").children("img").clone();
+};

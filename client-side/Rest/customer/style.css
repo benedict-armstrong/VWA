@@ -5,21 +5,33 @@ body {
     text-justify: distribute-all-lines;
 }
 
-.movie {
+.movie_card {
     margin: 10px;
+    padding: 0px !important;
     background-color: white;
-    display: inline-block;
     box-shadow: 1px 1px 10px #CCCCCC;
 }
 
-.movie:hover {
+.movie_card:hover {
     box-shadow: 3px 1px 5px #8F8E8E;
 }
 
-.movie p , .movie h4 {
+.movie_card p , .movie_card h4 {
     padding: 5px;
 }
 
-.movie img {
+.movie_card img {
+    width: 100%;
+}
+
+.modal-body img {
     width: 160px;
+}
+
+.col-sm-2 {
+    max-width: 200px;
+}
+
+.modal-content-inner {
+    display: inline;
 }

@@ -61,13 +61,6 @@ def info_movies_by_year(release_date):
     else:
         return jsonify(movies)
 
-@app.app.route('/movies/<movie_id>/screenings', methods=['GET'])
-def screenings(movie_id):
-    screenings1 = get_screenings(movie_id)
-    if (screenings1 is None or len(screenings1) == 0):
-        abort(404)
-    else:
-        return jsonify(screenings)
 
 @app.app.route('/screenings', methods=['GET'])
 def all_screenings():
