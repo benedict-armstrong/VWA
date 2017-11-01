@@ -40,11 +40,6 @@ def get_cinemas():
     cinemas = get_all_cinemas()
     return jsonify({'cinemas': cinemas})
 
-@app.app.route('/movies/all', methods=['GET'])
-def all_movies():
-    movies = get_all_movies()
-    return jsonify({'Movies': movies})
-
 @app.app.route('/movies/name/<movie_name>', methods=['GET'])
 def info_movie_by_name(movie_name):
     movie = get_movie_by_name(movie_name)
@@ -61,32 +56,15 @@ def info_movies_by_year(release_date):
     else:
         return jsonify(movies)
 
-
 @app.app.route('/screenings', methods=['GET'])
 def all_screenings():
     screenings1 = get_all_screenings()
     if (screenings1 is None or len(screenings1) == 0):
         abort(404)
     else:
-        return jsonify(screenings)
-
-@app.app.route('/room/<room_id>/screening/<screening_id>/seats', methods=['GET'])
-def get_seats_REST(room_id, screening_id):
-    seats = room_get_seats(screening_id, room_id)
-    if (seats is None):
-        abort(404)
-    else:
-        return jsonify(seats)
+        return jsonify(screenings1)
 
 ########## Post ############
-
-@app.app.route('/movie/add', methods=['POST'])
-def add_movie_REST():
-    if not request.json or not 'name' in request.json:
-        abort(400)
-    else:
-        movie_id = add_movie(request.json["length"], request.json["name"], request.json["release_date"])
-        return jsonify(movie_id), 201
 
 @app.app.route('/booking/new', methods=['POST'])
 def new_booking():

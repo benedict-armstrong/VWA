@@ -12,7 +12,7 @@ paths:
     get:
       tags: [movies]
       operationId: controllers.movies.showing_movies
-      summary: Gets all of the showing sovies
+      summary: Gets all of the showing movies
       responses:
         200:
           description: Returns schowing movies
@@ -20,6 +20,39 @@ paths:
             type: array
             items: 
               $ref: '#/definitions/Movie'
+        404:
+          description: No movies
+
+  /movies/all:
+    get:
+      tags: [movies]
+      operationId: controllers.movies.all_movies
+      summary: Gets all of the movies in the Database
+      responses:
+        200:
+          description: Returns all movies
+          schema:
+            type: array
+            items: 
+              $ref: '#/definitions/Movie'
+        404:
+          description: No movies
+
+  /screening/{screening_id}/room/{room_id}/seats:
+    get:
+      tags: [screenings]
+      operationId: controllers.screenings.get_seats_REST
+      summary: Gets all of the free Seats for a screening
+      parameters:
+        - $ref: '#/parameters/screening_id'
+        - $ref: '#/parameters/room_id'
+      responses:
+        200:
+          description: Returns all free Seats
+          schema:
+            type: array
+            items: 
+              $ref: '#/definitions/Seat'
         404:
           description: No movies
   
@@ -55,6 +88,26 @@ paths:
                 $ref: '#/definitions/Screening'
           404:
             description: No Screenings
+
+    post:
+      tags: [movies]
+      operationId: controllers.movies.add_movie_REST
+      summary: Creates a new event
+      parameters:
+        - $ref: '#/parameters/calendar_id'
+        - name: event_date
+          in: body
+          description: date of the event
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful response.
+          schema:
+            $ref: '#/definitions/Event'
+        403:
+          description: You are not allowed to add members to a calendar of which you are not a member
   
       
 definitions:
@@ -96,11 +149,42 @@ definitions:
         type: integer
         description: id of the Movie (FK)
         readOnly: true
+  Seat:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique ID of the seat
+        readOnly: true
+      seat_number:
+        type: string
+        description: Number of the seat
+        readOnly: true
+      seat_row:
+        type: integer
+        description: Row of the seat
+        readOnly: true
+      room_id:
+        type: integer
+        description: id of the Room (FK)
+        readOnly: true
 
 parameters:
   movie_id:
     name: movie_id
     description: Movies's unique identifier
+    in: path
+    type: integer
+    required: true
+  screening_id:
+    name: screening_id
+    description: Screening's unique identifier
+    in: path
+    type: integer
+    required: true
+  room_id:
+    name: room_id
+    description: Room's unique identifier
     in: path
     type: integer
     required: true

@@ -69,15 +69,16 @@ function paint_modal(movie) {
                 $(".modal-body").append(get_poster_dom(movie));
                 $(".modal-body").append(data);
                 $("#modal-movie-title").text(movie["name"]);
+                for (var i = 0; i < result["screenings"].length;i++) {
+                    var screening = {};
+                    screening["id"] = result["screenings"][i]["id"];
+                    screening["screening_time"] = result["screenings"][i]["screening_time"];
+                    screening["room_id"] = result["screenings"][i]["room_id"];
+                    screening["movie_id"] = result["screenings"][i]["movie_id"];
+                    $("#modal-screening-sel").append("<option>" + screening["screening_time"] + "</option>");
+                };
             });
-            for (var i = 0; i < result["screenings"].length;i++) {
-                var screening = {};
-                screening["id"] = result["screenings"][i]["id"];
-                screening["screening_time"] = result["screenings"][i]["screening_time"];
-                screening["room_id"] = result["screenings"][i]["room_id"];
-                screening["movie_id"] = result["screenings"][i]["movie_id"];
                 
-            };
             $("#reservation-modal").modal("show");
         }, error: function(xhr) {
             alert("Error (" + xhr.status + ") :  " + xhr.statusText);
