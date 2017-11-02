@@ -1,0 +1,41 @@
+body {
+    background-color: #EBE8E8;
+    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+}
+
+a {
+    color: black !important;
+}
+
+.movie_card {
+    margin: 10px;
+    padding: 0px !important;
+    background-color: white;
+    box-shadow: 1px 1px 10px #CCCCCC;
+}
+
+.movie_card:hover {
+    box-shadow: 3px 1px 5px #8F8E8E;
+}
+
+.movie_card p , .movie_card h4 {
+    padding: 5px;
+}
+
+.movie_card img {
+    width: 100%;
+}
+
+.modal-body img {
+    width: 160px;
+}
+
+.col-sm-2 {
+    max-width: 200px;
+}
+
+.modal-content-inner {
+    display: inline;
+}

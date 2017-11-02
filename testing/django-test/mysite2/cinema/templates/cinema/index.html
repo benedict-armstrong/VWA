@@ -1,0 +1,11 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'cinema/style.css' %}" />
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+{% for movie in showing_movies_list %}
+    <a href="/cinema/{{ movie.id }}/"><div class='movie_card col-sm-2'><img src="{% static 'cinema/images/avengers.jpg' %}"></img><h4>{{ movie.name }}</h4><p>Rating: <span class="ratings"></span></p></div></a>
+{% endfor %}

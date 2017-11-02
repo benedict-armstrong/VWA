@@ -66,13 +66,6 @@ def all_screenings():
 
 ########## Post ############
 
-@app.app.route('/booking/new', methods=['POST'])
-def new_booking():
-    if not request.json or not 'screening_id' in request.json or not 'customer_id' in request.json:
-        abort(400)
-    booking_id = create_booking(request.json['customer_id'], request.json['screening_id'])
-    return jsonify(booking_id), 201
-
 @app.app.route('/ticket/new', methods=['POST'])
 def new_ticket():
     if not request.json or not 'booking_id' in request.json or not 'seat_id' in request.json:

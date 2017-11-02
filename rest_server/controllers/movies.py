@@ -21,9 +21,6 @@ def all_movies():
     else:
         return {'movies': movies}
 
-def add_movie_REST():
-    if not request.json or not 'name' in request.json:
-        abort(400)
-    else:
-        movie_id = add_movie(request.json["length"], request.json["name"], request.json["release_date"])
-        return jsonify(movie_id), 201
+def add_movie_REST(movie):
+    movie1 = add_movie(movie["length_in_minutes"], movie["name"], movie["release_date"])
+    return movie1, 201

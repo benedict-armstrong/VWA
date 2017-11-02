@@ -73,7 +73,7 @@ def room_get_seats(screening_id, room_id):
         
 def create_booking(customer_id, screening_id):
     with get_db_cursor() as cursor:
-        cursor.execute("""insert into booking (screening_id, customer_id) values (%s,%s) returning id;""", [screening_id, customer_id])
+        cursor.execute("""insert into booking (screening_id, customer_id) values (%s,%s) returning *;""", [screening_id, customer_id])
         return cursor.fetchone()
 
 def create_ticket(booking_id, seat_id):

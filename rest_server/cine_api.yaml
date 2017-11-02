@@ -89,30 +89,49 @@ paths:
           404:
             description: No Screenings
 
+  /movie/add:
     post:
       tags: [movies]
       operationId: controllers.movies.add_movie_REST
-      summary: Creates a new event
+      summary: Creates a new Movie
       parameters:
-        - $ref: '#/parameters/calendar_id'
-        - name: event_date
+        - name: movie
           in: body
-          description: date of the event
+          description: Movie to add
           required: true
           schema:
-            type: string
+            $ref: '#/definitions/Movie'
       responses:
         200:
           description: Successful response.
           schema:
-            $ref: '#/definitions/Event'
-        403:
-          description: You are not allowed to add members to a calendar of which you are not a member
-  
+            $ref: '#/definitions/Movie'
+
+  /booking/new:
+    post:
+      tags: [booking]
+      operationId: controllers.booking.new_booking
+      summary: Creates a new Booking
+      parameters:
+        - name: booking
+          in: body
+          description: booking to add
+          required: true
+          schema:
+            $ref: '#/definitions/Booking'
+      responses:
+        200:
+          description: Successful response.
+          schema:
+            $ref: '#/definitions/Booking'
       
 definitions:
   Movie:
     type: object
+    required:
+      - name
+      - length_in_minutes
+      - release_date
     properties:
       id:
         type: integer
@@ -167,6 +186,28 @@ definitions:
       room_id:
         type: integer
         description: id of the Room (FK)
+        readOnly: true
+  Booking:
+    type: object
+    required:
+      - screening_id
+      - customer_id
+    properties:
+      id:
+        type: integer
+        description: Unique ID of the Booking
+        readOnly: true
+      screening_id:
+        type: string
+        description: id of the Screening (FK)
+        readOnly: true
+      customer_id:
+        type: integer
+        description: id of ther customer (FK)
+        readOnly: true
+      booking_reference:
+        type: integer
+        description: Booking Reference (carvar(10), randomly generated) !!!! NOTE !!!!! not implemented yet, for now send with request
         readOnly: true
 
 parameters:

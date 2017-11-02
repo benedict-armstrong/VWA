@@ -18,6 +18,6 @@ from django.contrib import admin
 from django.conf.urls import include
 
 urlpatterns = [
-    url(r'^polls/', include('polls.urls')),
+    url(r'^cinema/', include('cinema.urls')),
     url(r'^admin/', admin.site.urls),
 ]
