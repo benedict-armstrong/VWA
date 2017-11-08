@@ -18,7 +18,7 @@ class Movie(models.Model):
     class Meta:
         managed = False
         db_table = 'movie'
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 class AuthGroup(models.Model):
@@ -178,6 +178,8 @@ class Screening(models.Model):
     class Meta:
         managed = False
         db_table = 'screening'
+    def __str__(self):
+        return ("Movie: %s, Time: %s" % (self.movie, self.screening_time))
 
 
 class Seat(models.Model):

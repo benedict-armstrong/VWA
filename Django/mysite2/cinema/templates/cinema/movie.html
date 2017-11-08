@@ -1,0 +1,29 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'cinema/style.css' %}" />
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<div class="container">
+    <img id="detail-img" src="{% static 'cinema/images/avengers.jpg' %}"></img>
+    <div class="detail-content">
+        <h2 id="detail-movie-title">{{movie.name}}</h2>
+        <p id="detail-movie-description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+        <div class="form-group">
+            <label for="detail-screening-sel">Select Screening:</label>
+            <select class="form-control" id="detail-screening-sel">
+                {% for s in screenings %}
+                    <option>{{s.screening_time}}</option>
+                {% endfor %}
+            </select>
+            <form action="/user_id/" method="post">
+                <label for="user_id">Your User ID: </label>
+                <input id="user_id" type="text" name="user_id" value="{{ user_id }}">
+                <input type="submit" value="OK">
+            </form>
+            <button class="btn btn-primary" href="/cinema/booking/{{ movie.id }}/">Reserve Seats</button>
+        </div>
+    </div>
+</div>

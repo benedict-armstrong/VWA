@@ -28,7 +28,7 @@ a {
     width: 100%;
 }
 
-.modal-body img {
+#detail-img {
     width: 160px;
 }
 
@@ -36,6 +36,10 @@ a {
     max-width: 200px;
 }
 
-.modal-content-inner {
-    display: inline;
+.detail-content{
+    display: inline-block;
+}
+
+.btn {
+    margin-top: 10px;
 }
