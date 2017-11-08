@@ -1,10 +1,20 @@
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'cinema/style.css' %}" />
-
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<link rel="stylesheet" type="text/css" href="{% static 'cinema/style.css' %}" /> {% if error_message %}
+<p>
+    <strong>{{ error_message }}</strong>
+</p>
+{% endif %}
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<script>
+    var getScreening = function () {
+        var e = document.getElementById("detail-screening-sel");
+        var selected_screening_id = e.options[e.selectedIndex].value;
+        window.location.href = "/cinema/screening/" + selected_screening_id;
+    };
+</script>
 
 <div class="container">
     <img id="detail-img" src="{% static 'cinema/images/avengers.jpg' %}"></img>
@@ -15,15 +25,10 @@
             <label for="detail-screening-sel">Select Screening:</label>
             <select class="form-control" id="detail-screening-sel">
                 {% for s in screenings %}
-                    <option>{{s.screening_time}}</option>
+                <option value="{{s.id}}">{{s.screening_time}}</option>
                 {% endfor %}
             </select>
-            <form action="/user_id/" method="post">
-                <label for="user_id">Your User ID: </label>
-                <input id="user_id" type="text" name="user_id" value="{{ user_id }}">
-                <input type="submit" value="OK">
-            </form>
-            <button class="btn btn-primary" href="/cinema/booking/{{ movie.id }}/">Reserve Seats</button>
+            <button onclick="getScreening()" class="btn btn-primary">Reserve Seats</button>
         </div>
     </div>
 </div>
