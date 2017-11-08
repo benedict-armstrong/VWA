@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^screening/(?P<screening_id>[0-9]+)/$',
         views.screening,
         name='screening'),
+    # ex: /cinema/booking/8
+    url(r'^booking/(?P<booking_id>[0-9]+)$', views.booking, name='booking'),
 ]

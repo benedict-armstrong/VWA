@@ -5,7 +5,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 
-from .models import Movie, Screening
+from .models import Movie, Screening, Booking, Customer
+from .forms import BookingForm
+from random import randint
 
 # Create your views here.
 
@@ -27,8 +29,25 @@ def detail(request, movie_id):
 
 
 def screening(request, screening_id):
-    screening = Screening.objects.filter(pk=screening_id)[0]
-    print screening
-    movie = Movie.objects.filter(id=screening.movie_id)[0]
-    context = {'screening': screening, 'movie': movie}
-    return render(request, 'cinema/screening.html', context)
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            user_id = form.cleaned_data["user_id"]
+            b = Booking(
+                screening=Screening.objects.filter(pk=screening_id)[0],
+                customer=Customer.objects.filter(pk=user_id)[0],
+                booking_reference=randint(100, 10000000))
+            b.save()
+            url = "/cinema/booking/%s" % b.id
+            return HttpResponseRedirect(url)
+    else:
+        form = BookingForm()
+        screening = Screening.objects.filter(pk=screening_id)[0]
+        movie = Movie.objects.filter(id=screening.movie_id)[0]
+        context = {'screening': screening, 'movie': movie, 'form': form}
+        return render(request, 'cinema/screening.html', context)
+
+
+def booking(request, booking_id):
+    context = {"booking_id":booking_id}
+    return render(request, 'cinema/booking.html', context)

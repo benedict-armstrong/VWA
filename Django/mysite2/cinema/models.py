@@ -10,6 +10,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+
 class Movie(models.Model):
     length_in_minutes = models.IntegerField()
     name = models.CharField(unique=True, max_length=100)
@@ -18,8 +19,10 @@ class Movie(models.Model):
     class Meta:
         managed = False
         db_table = 'movie'
+
     def __str__(self):
         return self.name
+
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=80)
@@ -36,7 +39,7 @@ class AuthGroupPermissions(models.Model):
     class Meta:
         managed = False
         db_table = 'auth_group_permissions'
-        unique_together = (('group', 'permission'),)
+        unique_together = (('group', 'permission'), )
 
 
 class AuthPermission(models.Model):
@@ -47,7 +50,7 @@ class AuthPermission(models.Model):
     class Meta:
         managed = False
         db_table = 'auth_permission'
-        unique_together = (('content_type', 'codename'),)
+        unique_together = (('content_type', 'codename'), )
 
 
 class AuthUser(models.Model):
@@ -74,7 +77,7 @@ class AuthUserGroups(models.Model):
     class Meta:
         managed = False
         db_table = 'auth_user_groups'
-        unique_together = (('user', 'group'),)
+        unique_together = (('user', 'group'), )
 
 
 class AuthUserUserPermissions(models.Model):
@@ -84,16 +87,14 @@ class AuthUserUserPermissions(models.Model):
     class Meta:
         managed = False
         db_table = 'auth_user_user_permissions'
-        unique_together = (('user', 'permission'),)
+        unique_together = (('user', 'permission'), )
 
 
 class Booking(models.Model):
     screening = models.ForeignKey('Screening', models.DO_NOTHING, blank=True, null=True)
     customer = models.ForeignKey('Customer', models.DO_NOTHING, blank=True, null=True)
     booking_reference = models.CharField(max_length=10)
-
     class Meta:
-        managed = False
         db_table = 'booking'
 
 
@@ -123,7 +124,8 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.SmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey(
+        'DjangoContentType', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
@@ -138,7 +140,7 @@ class DjangoContentType(models.Model):
     class Meta:
         managed = False
         db_table = 'django_content_type'
-        unique_together = (('app_label', 'model'),)
+        unique_together = (('app_label', 'model'), )
 
 
 class DjangoMigrations(models.Model):
@@ -163,7 +165,8 @@ class DjangoSession(models.Model):
 
 class Room(models.Model):
     number = models.CharField(max_length=100)
-    cinema = models.ForeignKey(Cinema, models.DO_NOTHING, blank=True, null=True)
+    cinema = models.ForeignKey(
+        Cinema, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -178,6 +181,7 @@ class Screening(models.Model):
     class Meta:
         managed = False
         db_table = 'screening'
+
     def __str__(self):
         return ("Movie: %s, Time: %s" % (self.movie, self.screening_time))
 
@@ -194,7 +198,8 @@ class Seat(models.Model):
 
 class Ticket(models.Model):
     seat = models.ForeignKey(Seat, models.DO_NOTHING, blank=True, null=True)
-    booking = models.ForeignKey(Booking, models.DO_NOTHING, blank=True, null=True)
+    booking = models.ForeignKey(
+        Booking, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
