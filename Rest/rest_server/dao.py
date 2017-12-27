@@ -2,8 +2,6 @@ from contextlib import contextmanager
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
-
-
 def get_db_connection():
     return psycopg2.connect("host=localhost dbname=cinema_reservation_db user=postgres password=tomturbo")
 
