@@ -15,7 +15,7 @@ paths:
       summary: Gets all of the showing movies
       responses:
         200:
-          description: Returns schowing movies
+          description: Returns showing movies
           schema:
             type: array
             items: 
