@@ -36,7 +36,8 @@ def screening(request, screening_id):
             b = Booking(
                 screening=Screening.objects.filter(pk=screening_id)[0],
                 customer=Customer.objects.filter(pk=user_id)[0],
-                booking_reference=randint(100, 10000000))
+                #booking_reference=randint(100, 10000000)
+            )
             b.save()
             url = "/cinema/booking/%s" % b.id
             return HttpResponseRedirect(url)
@@ -49,5 +50,5 @@ def screening(request, screening_id):
 
 
 def booking(request, booking_id):
-    context = {"booking_id":booking_id}
+    context = {"booking_id": booking_id}
     return render(request, 'cinema/booking.html', context)

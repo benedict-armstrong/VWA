@@ -91,9 +91,12 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Booking(models.Model):
-    screening = models.ForeignKey('Screening', models.DO_NOTHING, blank=True, null=True)
-    customer = models.ForeignKey('Customer', models.DO_NOTHING, blank=True, null=True)
+    screening = models.ForeignKey(
+        'Screening', models.DO_NOTHING, blank=True, null=True)
+    customer = models.ForeignKey(
+        'Customer', models.DO_NOTHING, blank=True, null=True)
     booking_reference = models.CharField(max_length=10)
+
     class Meta:
         db_table = 'booking'
 
@@ -171,6 +174,9 @@ class Room(models.Model):
     class Meta:
         managed = False
         db_table = 'room'
+
+    def __str__(self):
+        return ("Room: %s" % (self.id))
 
 
 class Screening(models.Model):
