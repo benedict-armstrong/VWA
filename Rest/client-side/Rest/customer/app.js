@@ -1,35 +1,34 @@
-var movie_img = "<img src='img/avengers.jpg'>";
-
-$(document).ready(function() {
+$(document).ready(function () {
 
     /* Setup */
 
-    $("body").on("hover", ".movie" , function() {
-        $(this).css("margin","5px");
-        $(this).children("img").css("width","170px");
-    }, function() {
-        $(this).css("margin","10px");
-        $(this).children("img").css("width","160px");
+    $("body").on("hover", ".movie", function () {
+        $(this).css("margin", "5px");
+        $(this).children("img").css("width", "170px");
+    }, function () {
+        $(this).css("margin", "10px");
+        $(this).children("img").css("width", "160px");
     });
 
     /* Ajax */
 
     $.ajax({
         url: "http://127.0.0.1:5000/movies",
-        success: function(result) {
-            for (var i = 0; i < result["showing_movies"].length;i++) {
+        success: function (result) {
+            for (var i = 0; i < result["showing_movies"].length; i++) {
                 var movie = result["showing_movies"][i];
                 paint_movie(movie);
             };
-            
-        }, error: function(xhr) {
+
+        },
+        error: function (xhr) {
             alert("Error (" + xhr.status + ") :  " + xhr.statusText);
         }
-    }); 
+    });
 
     /* Modal */
 
-    $(".content").on("click", ".movie_card", function() {
+    $(".content").on("click", ".movie_card", function () {
         var movie = {};
         movie["name"] = $(this).children("h4").text();
         movie["id"] = $(this).attr("movie_id");
@@ -43,12 +42,12 @@ function paint_movie(movie) {
     if (!$(".row:last > div").length < 12) {
         $(".content").append("<div class='row'></div>");
     };
-    $.get("movie_card.html", function(data) {
+    $.get("movie_card.html", function (data) {
         $(".content > .row:last").append(data);
         $(".movie_card:last").attr("movie_id", movie["id"]);
         var movie_dom = $('.movie_card[movie_id=' + movie["id"] + ']');
         movie_dom.children("h4").text(movie["name"]);
-        movie_dom.prepend(movie_img);
+        movie_dom.prepend("<img class='poster' src='posters/" + movie["name"].split(' ').join('+') + ".jpg'>");
         /*$.ajax({
             url: "http://127.0.0.1:5000/poster/" + movie["id"],
             success: function(result) {
@@ -63,13 +62,13 @@ function paint_movie(movie) {
 function paint_modal(movie) {
     $.ajax({
         url: "http://127.0.0.1:5000/movie/" + movie["id"] + "/screenings",
-        success: function(result) {
+        success: function (result) {
             $(".modal-body").html("");
-            $.get("reservation-modal-body.html", function(data) {
+            $.get("reservation-modal-body.html", function (data) {
                 $(".modal-body").append(get_poster_dom(movie));
                 $(".modal-body").append(data);
                 $("#modal-movie-title").text(movie["name"]);
-                for (var i = 0; i < result["screenings"].length;i++) {
+                for (var i = 0; i < result["screenings"].length; i++) {
                     var screening = {};
                     screening["id"] = result["screenings"][i]["id"];
                     screening["screening_time"] = result["screenings"][i]["screening_time"];
@@ -78,9 +77,10 @@ function paint_modal(movie) {
                     $("#modal-screening-sel").append("<option>" + screening["screening_time"] + "</option>");
                 };
             });
-                
+
             $("#reservation-modal").modal("show");
-        }, error: function(xhr) {
+        },
+        error: function (xhr) {
             alert("Error (" + xhr.status + ") :  " + xhr.statusText);
         }
     });
