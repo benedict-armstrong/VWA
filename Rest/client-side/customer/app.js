@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     /* Setup */
-
     $("body").on("hover", ".movie", function () {
         $(this).css("margin", "5px");
         $(this).children("img").css("width", "170px");
@@ -46,16 +45,9 @@ function paint_movie(movie) {
         $(".content > .row:last").append(data);
         $(".movie_card:last").attr("movie_id", movie["id"]);
         var movie_dom = $('.movie_card[movie_id=' + movie["id"] + ']');
+        movie_dom.data(movie);
         movie_dom.children("h4").text(movie["name"]);
         movie_dom.prepend("<img class='poster' src='posters/" + movie["name"].split(' ').join('+') + ".jpg'>");
-        /*$.ajax({
-            url: "http://127.0.0.1:5000/poster/" + movie["id"],
-            success: function(result) {
-                movie_dom.prepend(result);
-            }, error: function(xhr) {
-                alert("Error (" + xhr.status + ") :  " + xhr.statusText);
-            }
-        });*/
     });
 };
 
@@ -89,3 +81,19 @@ function paint_modal(movie) {
 function get_poster_dom(movie) {
     return $(".movie_card[movie_id='" + movie['id'] + "']").children("img").clone();
 };
+
+function moviesearch() {
+    var input, filter, movies;
+    input = document.getElementById("movie_search");
+    filter = input.value.toUpperCase();
+    movies = $(".movie_card");
+    for (i = 0; i < movies.length; i++) {
+        if (movies.eq(i).data("name").toUpperCase().indexOf(filter) > -1) {
+            movies.eq(i).css("display", "");
+            console.log(movies.eq(i).data("name"));
+            console.log(filter);
+        } else {
+            movies.eq(i).css("display", "none");
+        };
+    };
+}
