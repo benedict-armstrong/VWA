@@ -1,7 +1,7 @@
 import json
 import urllib2
 
-poster_path = "../../../posters/"
+poster_path = "/static/cinema/posters"
 
 
 def get_poster(movie):

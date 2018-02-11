@@ -1,19 +1,72 @@
-{% load static %}
+{% load static %} {% load poster_path %}
+<!DOCTYPE html>
+<html>
 
-<link rel="stylesheet" type="text/css" href="{% static 'cinema/style.css' %}" /> {% if error_message %}
-<p>
-    <strong>{{ error_message }}</strong>
-</p>
-{% endif %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'cinema/style.css' %}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</head>
 
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> {% for movie in showing_movies_list %}
-<a href="/cinema/{{ movie.id }}/">
-    <div class='movie_card col-sm-2'>
-        <img src="{% static 'cinema/images/avengers.jpg' %}"></img>
-        <h4>{{ movie.name }}</h4>
-        <p>Rating:
-            <span class="ratings"></span>
-        </p>
+<body>
+
+    {% if error_message %}
+    <p>
+        <strong>{{ error_message }}</strong>
+    </p>
+    {% endif %}
+
+    <nav class="navbar navbar-expand-sm fixed-top bg-white">
+        <a class="navbar-brand" href="#home">
+            <img src="{% static 'cinema/images/CSRA_logo.svg' %}" height="40px">
+        </a>
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/cinema">Movies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input id="movie_search" class="form-control mr-sm-2" type="text" placeholder="Movie Name" onkeyup="moviesearch()">
+            <button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
+        </form>
+        </div>
+    </nav>
+
+
+
+
+    <div class="container-fluid content">
+
+        <div class="row">
+
+            {% for movie in showing_movies_list %}
+
+            <div class='movie_card col-sm-2'>
+                <a href="/cinema/{{ movie.id }}/">
+                    <img src="{% static 'cinema/images/avengers.jpg' %}"></img>
+                    <h4>{{ movie.name }}</h4>
+                    <p>Rating:
+                        <span class="ratings">★★★★☆</span>
+                    </p>
+                </a>
+            </div>
+
+            {% endfor %}
+        </div>
     </div>
-</a>
-{% endfor %}
+</body>
+
+</html>

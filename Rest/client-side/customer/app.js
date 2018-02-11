@@ -90,10 +90,10 @@ function moviesearch() {
     for (i = 0; i < movies.length; i++) {
         if (movies.eq(i).data("name").toUpperCase().indexOf(filter) > -1) {
             movies.eq(i).css("display", "");
-            console.log(movies.eq(i).data("name"));
-            console.log(filter);
         } else {
             movies.eq(i).css("display", "none");
         };
     };
+
+
 }
